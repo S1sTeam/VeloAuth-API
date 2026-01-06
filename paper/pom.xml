@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.s1steam</groupId>
+        <artifactId>veloauth-parent</artifactId>
+        <version>1.1.0</version>
+        <relativePath>../pom-parent.xml</relativePath>
+    </parent>
+
+    <artifactId>veloauth-api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>VeloAuth API</name>
+    <description>Velocity plugin for VeloAuth authentication system</description>
+
+    <dependencies>
+        <!-- Velocity API -->
+        <dependency>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+        </dependency>
+
+        <!-- SLF4J API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- SnakeYAML -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
+        <!-- Caffeine Cache for DDoS protection -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <!-- GeoIP2 for IP geolocation -->
+        <dependency>
+            <groupId>com.maxmind.geoip2</groupId>
+            <artifactId>geoip2</artifactId>
+        </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>VeloAuth-API-${project.version}</finalName>
+        <defaultGoal>clean package</defaultGoal>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- Maven Shade Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.yaml.snakeyaml</pattern>
+                            <shadedPattern>com.s1steam.veloauth.api.libs.snakeyaml</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.github.benmanes.caffeine</pattern>
+                            <shadedPattern>com.s1steam.veloauth.api.libs.caffeine</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.maxmind.geoip2</pattern>
+                            <shadedPattern>com.s1steam.veloauth.api.libs.geoip2</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Surefire Plugin for running tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.3</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
