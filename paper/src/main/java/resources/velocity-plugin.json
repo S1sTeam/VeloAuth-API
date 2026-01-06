@@ -1,0 +1,11 @@
+{
+  "id": "veloauth-api",
+  "name": "VeloAuth API",
+  "version": "1.1.0",
+  "description": "Velocity proxy plugin for VeloAuth Enhanced authentication system - Advanced DDoS protection, player registry, and plugin messaging with IP reputation tracking",
+  "authors": [
+    "S1sTeam"
+  ],
+  "main": "com.s1steam.veloauth.api.VeloAuthAPI",
+  "dependencies": []
+}
